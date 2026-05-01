@@ -36,22 +36,28 @@ The system consists of three main decoupled layers:
 ```bash
 .
 ├── Scrapper/           # Python Web Scraper (Step 1)
-│   ├── scraper.py      # Main scraper logic
-│   ├── gui.py          # Desktop GUI for the scraper
+│   ├── scraper.py      # Core scraping logic
+│   ├── gui.py          # Desktop GUI (Tkinter)
+│   ├── web_gui.py      # Flask Web Interface
+│   ├── scraper-ui.html # Web UI template
 │   ├── requirements.txt# Python dependencies
 │   └── listings.json   # Scraped data output
 ├── api/                # Node.js Express API Service (Step 2)
-│   ├── server.js       # Main API logic
+│   ├── server.js       # API entry point & logic
+│   ├── index.html      # Interactive API reference page
 │   ├── .env            # API configuration
+│   ├── package.json    # Node dependencies
 │   └── listings.json   # Local data source (201 records)
 ├── dashboard/          # React + Tailwind Dashboard (Step 3)
-│   ├── src/            # Source code (Hooks, Components, Types)
+│   ├── src/            # Components, Hooks, and Types
+│   ├── public/         # Static assets
 │   ├── .env            # Frontend environment variables
+│   ├── tailwind.config.js # Styling configuration
 │   └── vite.config.ts  # Build configuration
 └── wp-plugin/          # WordPress Plugin Wrapper
-    └── hidden-deals/   # The installable plugin folder
-        ├── build/      # Compiled React assets
-        └── hidden-deals.php # Plugin entry point
+    └── hidden-deals/   # Plugin distribution folder
+        ├── build/      # Production-ready React assets
+        └── hidden-deals.php # WordPress entry point & menu logic
 ```
 
 ---
