@@ -81,6 +81,22 @@ python scraper.py --pages all
 python scraper.py --pages 3 --output listings.csv
 ```
 
+### 📊 Data Fields
+The scraper extracts the following fields for each property:
+
+| Field | Example |
+| :--- | :--- |
+| `title` | 3 bedroom semi-detached house for sale... |
+| `price` | £179,000 |
+| `location` | DN37 |
+| `link` | https://repossessedhousesforsale.com/... |
+| `property_id` | 87888624 |
+| `bedrooms` | 3 |
+| `property_type` | Semi-Detached House |
+| `postcode` | DN37 |
+| `image_url` | (URL to property image) |
+| `added_date` | 30 Apr, 2026 |
+
 ### 🖥️ Desktop GUI (Visual Mode)
 For a more user-friendly experience, you can use the built-in desktop application:
 ```bash
@@ -121,16 +137,49 @@ node server.js
 *API will be live at `http://localhost:3000`*
 
 ### Endpoints
-- `GET /api/listings`: Returns paginated listings with filtering.
-- `GET /api/listings/:id`: Returns a single listing by ID.
-- `GET /health`: Health check showing record count and source.
 
-**Filters (Query Params):**
-- `location`: Substring search on location/title.
-- `min_price` / `max_price`: Price range filtering.
-- `bedrooms`: Exact bedroom count.
-- `type`: Property type (e.g., "Bungalow").
-- `limit`: Results per page (Max: 10,000).
+#### `GET /api/listings`
+Returns paginated listings with filtering.
+
+**Query Parameters:**
+
+| Param | Type | Description |
+| :--- | :--- | :--- |
+| `location` | string | Substring search on location, title, or postcode |
+| `min_price` | number | Minimum price (inclusive) |
+| `max_price` | number | Maximum price (inclusive) |
+| `bedrooms` | number | Exact bedroom count |
+| `type` | string | Substring match on property type (e.g. "flat") |
+| `page` | number | Page number (default: 1) |
+| `limit` | number | Results per page (default: 20, max: 10,000) |
+| `source` | string | Optional remote JSON URL to load data from |
+
+**Examples:**
+```bash
+# All listings
+curl http://localhost:3000/api/listings
+
+# Filter by location
+curl "http://localhost:3000/api/listings?location=bristol"
+
+# Filter by price range
+curl "http://localhost:3000/api/listings?min_price=100000&max_price=250000"
+
+# Filter by bedrooms + type
+curl "http://localhost:3000/api/listings?bedrooms=2&type=flat"
+
+# Paginate
+curl "http://localhost:3000/api/listings?page=2&limit=5"
+```
+
+#### `GET /api/listings/:id`
+Returns a single listing by property ID.
+
+#### `GET /health`
+Health check showing record count and data source.
+```json
+{ "status": "ok", "listings_count": 201, "source": "..." }
+```
 
 ---
 
