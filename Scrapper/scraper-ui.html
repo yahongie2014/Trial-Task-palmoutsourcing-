@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hidden Deals — Web Scraper Control</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: #1e293b;
+      --accent: #6366f1;
+      --text: #f1f5f9;
+      --muted: #94a3b8;
+      --error: #ef4444;
+      --success: #10b981;
+    }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', system-ui, sans-serif;
+      margin: 0;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    .header {
+      background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
+      padding: 3rem 2rem;
+      text-align: center;
+    }
+    .header h1 {
+      margin: 0;
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.025em;
+    }
+    .container {
+      max-width: 800px;
+      margin: -2rem auto 4rem;
+      padding: 0 1.5rem;
+    }
+    .card {
+      background: var(--card);
+      border-radius: 1rem;
+      padding: 2rem;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    label {
+      display: block;
+      font-size: 0.875rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+    select, input[type="number"] {
+      width: 100%;
+      background: #0f172a;
+      border: 1px solid #334155;
+      color: white;
+      padding: 0.75rem;
+      border-radius: 0.5rem;
+      font-size: 1rem;
+      box-sizing: border-box;
+    }
+    .radio-group {
+      display: flex;
+      gap: 1.5rem;
+    }
+    .radio-group label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      text-transform: none;
+      color: var(--text);
+      cursor: pointer;
+    }
+    .btn {
+      width: 100%;
+      background: var(--accent);
+      color: white;
+      border: none;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-top: 1rem;
+    }
+    .btn:hover:not(:disabled) {
+      background: #4f46e5;
+      transform: translateY(-1px);
+    }
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    #console {
+      background: #0b1120;
+      border-radius: 0.75rem;
+      padding: 1.5rem;
+      margin-top: 2rem;
+      height: 300px;
+      overflow-y: auto;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.875rem;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      display: none;
+    }
+    .log-line {
+      margin-bottom: 0.25rem;
+      color: var(--muted);
+    }
+    .log-line.error { color: var(--error); }
+    .log-line.success { color: var(--success); font-weight: 700; }
+    
+    #download-zone {
+      margin-top: 2rem;
+      display: none;
+      text-align: center;
+      padding: 1.5rem;
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px dashed var(--success);
+      border-radius: 1rem;
+    }
+    .download-btn {
+      display: inline-block;
+      background: var(--success);
+      color: white;
+      text-decoration: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.5rem;
+      font-weight: 700;
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <h1>🕷️ Web Scraper Dashboard</h1>
+    <p style="opacity: 0.8; margin-top: 0.5rem;">Configure and trigger the property collection pipeline.</p>
+  </div>
+
+  <div class="container">
+    <div class="card">
+      <div id="setup-form">
+        <div class="form-group">
+          <label>Number of Pages to Scrape</label>
+          <select id="pages">
+            <option value="1">Page 1 only (10 listings)</option>
+            <option value="5">Pages 1 to 5 (~50 listings)</option>
+            <option value="10">Pages 1 to 10 (~100 listings)</option>
+            <option value="20">Pages 1 to 20 (~200 listings)</option>
+            <option value="all">All Pages (Slow - Full Archive)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Export Format</label>
+          <div class="radio-group">
+            <label><input type="radio" name="format" value="json" checked> JSON</label>
+            <label><input type="radio" name="format" value="csv"> CSV</label>
+          </div>
+        </div>
+
+        <button id="start-btn" class="btn">START SCRAPING JOB</button>
+      </div>
+
+      <div id="console"></div>
+
+      <div id="download-zone">
+        <p style="margin: 0; font-weight: 700; color: var(--success);">🎉 Scraping Complete!</p>
+        <p style="margin: 0.5rem 0; color: var(--muted); font-size: 0.875rem;">Your file is ready for download.</p>
+        <a id="download-link" href="#" class="download-btn">DOWNLOAD RESULTS</a>
+        <button onclick="location.reload()" style="background: transparent; border: none; color: var(--muted); cursor: pointer; display: block; margin: 1rem auto; text-decoration: underline;">Run Another Job</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const startBtn = document.getElementById('start-btn');
+    const consoleEl = document.getElementById('console');
+    const downloadZone = document.getElementById('download-zone');
+    const downloadLink = document.getElementById('download-link');
+
+    function log(msg, type = 'log') {
+      const line = document.createElement('div');
+      line.className = `log-line ${type}`;
+      line.textContent = `> ${msg}`;
+      consoleEl.appendChild(line);
+      consoleEl.scrollTop = consoleEl.scrollHeight;
+    }
+
+    startBtn.onclick = () => {
+      const pages = document.getElementById('pages').value;
+      const format = document.querySelector('input[name="format"]:checked').value;
+      
+      startBtn.disabled = true;
+      startBtn.textContent = 'SCRAPING IN PROGRESS...';
+      consoleEl.style.display = 'block';
+      log(`Initializing scraper for ${pages} pages...`);
+
+      const eventSource = new EventSource(`/api/scrape/stream?pages=${pages}&format=${format}`);
+
+      eventSource.onmessage = (event) => {
+        const data = JSON.parse(event.data);
+        
+        if (data.type === 'log') {
+          log(data.message);
+        } else if (data.type === 'error') {
+          log(data.message, 'error');
+        } else if (data.type === 'done') {
+          log('Scraping finished successfully!', 'success');
+          eventSource.close();
+          
+          downloadLink.href = `/api/download/${data.file}`;
+          downloadLink.textContent = `DOWNLOAD ${data.file.toUpperCase()}`;
+          downloadZone.style.display = 'block';
+          startBtn.textContent = 'DONE';
+        }
+      };
+
+      eventSource.onerror = (err) => {
+        log('Connection lost or server error occurred.', 'error');
+        eventSource.close();
+        startBtn.disabled = false;
+        startBtn.textContent = 'RETRY JOB';
+      };
+    };
+  </script>
+
+</body>
+</html>

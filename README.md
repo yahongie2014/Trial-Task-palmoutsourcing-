@@ -37,6 +37,7 @@ The system consists of three main decoupled layers:
 .
 ├── Scrapper/           # Python Web Scraper (Step 1)
 │   ├── scraper.py      # Main scraper logic
+│   ├── gui.py          # Desktop GUI for the scraper
 │   ├── requirements.txt# Python dependencies
 │   └── listings.json   # Scraped data output
 ├── api/                # Node.js Express API Service (Step 2)
@@ -79,6 +80,33 @@ python scraper.py --pages all
 # Output as CSV
 python scraper.py --pages 3 --output listings.csv
 ```
+
+### 🖥️ Desktop GUI (Visual Mode)
+For a more user-friendly experience, you can use the built-in desktop application:
+```bash
+python gui.py
+```
+**GUI Features:**
+- **Flexible Paging**: Select specific page ranges (1, 5, 10, etc.) or toggle "Scrape ALL".
+- **Format Toggle**: Instantly switch between **JSON** and **CSV** exports.
+- **Activity Log**: Watch the scraping progress in real-time.
+- **Save Dialog**: Choose your destination folder and filename visually.
+
+### 🕸️ Web UI (Browser Mode)
+Alternatively, you can run a local web server to manage scraping from your browser:
+```bash
+# Set up venv and run
+python3 -m venv venv
+source venv/bin/activate
+pip install flask
+python web_gui.py
+```
+*Access the interface at `http://localhost:5001`*
+
+**Web Features:**
+- **Remote Access**: Manage scraping from any device in your network.
+- **SSE Streaming**: Live log updates directly in the browser.
+- **Easy Download**: Instantly download results after the job completes.
 
 ---
 

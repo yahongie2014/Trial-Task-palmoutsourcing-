@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +8,13 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
     body {
       font-family: 'Inter', -apple-system, sans-serif;
@@ -212,9 +219,17 @@
       overflow-x: auto;
     }
 
-    .response-preview .key { color: #818cf8; }
-    .response-preview .str { color: #4ade80; }
-    .response-preview .num { color: #fbbf24; }
+    .response-preview .key {
+      color: #818cf8;
+    }
+
+    .response-preview .str {
+      color: #4ade80;
+    }
+
+    .response-preview .num {
+      color: #fbbf24;
+    }
 
     footer {
       text-align: center;
@@ -225,6 +240,7 @@
     }
   </style>
 </head>
+
 <body>
 
   <div class="hero">
@@ -253,16 +269,48 @@
 
       <table class="params-table">
         <thead>
-          <tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
+          <tr>
+            <th>Parameter</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
         </thead>
         <tbody>
-          <tr><td>location</td><td>string</td><td>Substring search on location, title, or postcode</td></tr>
-          <tr><td>min_price</td><td>number</td><td>Minimum price filter (inclusive)</td></tr>
-          <tr><td>max_price</td><td>number</td><td>Maximum price filter (inclusive)</td></tr>
-          <tr><td>bedrooms</td><td>number</td><td>Exact bedroom count</td></tr>
-          <tr><td>type</td><td>string</td><td>Substring match on property type (e.g. "flat", "detached")</td></tr>
-          <tr><td>page</td><td>number</td><td>Page number (default: 1)</td></tr>
-          <tr><td>limit</td><td>number</td><td>Results per page (default: 20, max: 100)</td></tr>
+          <tr>
+            <td>location</td>
+            <td>string</td>
+            <td>Substring search on location, title, or postcode</td>
+          </tr>
+          <tr>
+            <td>min_price</td>
+            <td>number</td>
+            <td>Minimum price filter (inclusive)</td>
+          </tr>
+          <tr>
+            <td>max_price</td>
+            <td>number</td>
+            <td>Maximum price filter (inclusive)</td>
+          </tr>
+          <tr>
+            <td>bedrooms</td>
+            <td>number</td>
+            <td>Exact bedroom count</td>
+          </tr>
+          <tr>
+            <td>type</td>
+            <td>string</td>
+            <td>Substring match on property type (e.g. "flat", "detached")</td>
+          </tr>
+          <tr>
+            <td>page</td>
+            <td>number</td>
+            <td>Page number (default: 1)</td>
+          </tr>
+          <tr>
+            <td>limit</td>
+            <td>number</td>
+            <td>Results per page (default: 20, max: 100)</td>
+          </tr>
         </tbody>
       </table>
 
@@ -270,7 +318,8 @@
       <div class="examples">
         <a href="/api/listings">/api/listings</a>
         <a href="/api/listings?location=bristol">/api/listings?location=bristol</a>
-        <a href="/api/listings?min_price=100000&max_price=250000">/api/listings?min_price=100000&amp;max_price=250000</a>
+        <a
+          href="/api/listings?min_price=100000&max_price=250000">/api/listings?min_price=100000&amp;max_price=250000</a>
         <a href="/api/listings?bedrooms=2&type=flat">/api/listings?bedrooms=2&amp;type=flat</a>
         <a href="/api/listings?page=1&limit=5">/api/listings?page=1&amp;limit=5</a>
       </div>
@@ -318,7 +367,8 @@
       </div>
 
       <div class="response-preview">
-        { <span class="key">"status"</span>: <span class="str">"ok"</span>, <span class="key">"listings_count"</span>: <span class="num">{{COUNT}}</span> }
+        { <span class="key">"status"</span>: <span class="str">"ok"</span>, <span class="key">"listings_count"</span>:
+        <span class="num">{{COUNT}}</span> }
       </div>
     </div>
 
@@ -328,19 +378,63 @@
     <div class="card">
       <table class="params-table">
         <thead>
-          <tr><th>Field</th><th>Type</th><th>Example</th></tr>
+          <tr>
+            <th>Field</th>
+            <th>Type</th>
+            <th>Example</th>
+          </tr>
         </thead>
         <tbody>
-          <tr><td>title</td><td>string</td><td>3 bedroom semi-detached house for sale in…</td></tr>
-          <tr><td>price</td><td>string</td><td>£179,000</td></tr>
-          <tr><td>location</td><td>string</td><td>DN37</td></tr>
-          <tr><td>link</td><td>string</td><td>https://repossessedhousesforsale.com/…</td></tr>
-          <tr><td>property_id</td><td>string</td><td>87888624</td></tr>
-          <tr><td>bedrooms</td><td>number|null</td><td>3</td></tr>
-          <tr><td>property_type</td><td>string</td><td>Semi-Detached House</td></tr>
-          <tr><td>postcode</td><td>string</td><td>DN37</td></tr>
-          <tr><td>image_url</td><td>string</td><td>(when available)</td></tr>
-          <tr><td>added_date</td><td>string</td><td>30 Apr, 2026</td></tr>
+          <tr>
+            <td>title</td>
+            <td>string</td>
+            <td>3 bedroom semi-detached house for sale in…</td>
+          </tr>
+          <tr>
+            <td>price</td>
+            <td>string</td>
+            <td>£179,000</td>
+          </tr>
+          <tr>
+            <td>location</td>
+            <td>string</td>
+            <td>DN37</td>
+          </tr>
+          <tr>
+            <td>link</td>
+            <td>string</td>
+            <td>https://repossessedhousesforsale.com/…</td>
+          </tr>
+          <tr>
+            <td>property_id</td>
+            <td>string</td>
+            <td>87888624</td>
+          </tr>
+          <tr>
+            <td>bedrooms</td>
+            <td>number|null</td>
+            <td>3</td>
+          </tr>
+          <tr>
+            <td>property_type</td>
+            <td>string</td>
+            <td>Semi-Detached House</td>
+          </tr>
+          <tr>
+            <td>postcode</td>
+            <td>string</td>
+            <td>DN37</td>
+          </tr>
+          <tr>
+            <td>image_url</td>
+            <td>string</td>
+            <td>(when available)</td>
+          </tr>
+          <tr>
+            <td>added_date</td>
+            <td>string</td>
+            <td>30 Apr, 2026</td>
+          </tr>
         </tbody>
       </table>
     </div>
@@ -352,4 +446,5 @@
   </footer>
 
 </body>
+
 </html>
