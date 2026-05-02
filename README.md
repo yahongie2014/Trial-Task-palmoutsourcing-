@@ -12,6 +12,7 @@ A full-stack system designed to scrape, serve, and visualize repossessed and und
 
 | Component | URL |
 | :--- | :--- |
+| **Scrapper Live** | [https://scrapper-real.fly.dev/](https://scrapper-real.fly.dev/) |
 | **Production API** | [https://listing.sericap.online/](https://listing.sericap.online/) |
 | **WP Dashboard** | [https://wp.sericap.online/wp-admin/...](https://wp.sericap.online/wp-admin/admin.php?page=hidden-deals) |
 

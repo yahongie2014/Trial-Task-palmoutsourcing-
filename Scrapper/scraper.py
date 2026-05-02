@@ -33,9 +33,9 @@ from bs4 import BeautifulSoup, Tag
 # ---------------------------------------------------------------------------
 
 BASE_URL = "https://repossessedhousesforsale.com/properties/"
-REQUEST_DELAY = 1.5          # seconds between page fetches (be polite)
-REQUEST_TIMEOUT = 15         # seconds per request
-MAX_RETRIES = 3              # retries on transient HTTP errors
+REQUEST_DELAY = 1.5
+REQUEST_TIMEOUT = 15
+MAX_RETRIES = 3 
 
 HEADERS = {
     "User-Agent": (
